@@ -1,8 +1,14 @@
-import { DataStructureState, ActionTypes } from '../Types/reduxTypes';
+import {
+  ActionTypes,
+  SetDataStructureAction,
+  DataStructureState,
+} from '../Types/reduxTypes';
 
-export const addDataStructure = (dataStructure: DataStructureState) => {
+export const addDataStructure = (
+  data: DataStructureState
+): SetDataStructureAction => {
   return {
     type: ActionTypes.SET_DATA_STRUCTURE,
-    payload: dataStructure,
+    payload: data,
   };
 };
