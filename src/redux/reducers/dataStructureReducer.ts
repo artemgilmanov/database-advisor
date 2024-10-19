@@ -18,8 +18,8 @@ export const dataStructureReducer = (
     case DataStructureActionTypes.SET_DATA_STRUCTURE:
       return {
         ...state,
-        dataStructure: action.payload,
-        supportedDataTypes: action.payload,
+        dataStructure: action.payload.dataStructure,
+        supportedDataTypes: action.payload.supportedDataTypes,
       };
     default:
       return state;

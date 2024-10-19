@@ -19,9 +19,9 @@ export const consistencyReducer = (
     case ConsistencyActionTypes.SET_CONSISTENCY:
       return {
         ...state,
-        consistencyModel: action.payload,
-        consistencyLatency: action.payload,
-        consistencyAvailability: action.payload,
+        consistencyModel: action.payload.consistencyModel,
+        consistencyLatency: action.payload.consistencyLatency,
+        consistencyAvailability: action.payload.consistencyAvailability,
       };
     default:
       return state;
