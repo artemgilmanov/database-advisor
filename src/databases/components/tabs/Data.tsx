@@ -1,26 +1,34 @@
-import { useState } from 'react';
 import Dropdown from '@/shared/components/Dropdown';
 import { getEnumValues } from '@/shared/domain/helpers';
-import { DataStructures } from '@/databases/domain/types';
-import { useDispatch } from 'react-redux';
-import { addDataStructure } from '@/redux/DataStructure/actionCreators';
+import { DataStructures, SupportedDataTypes } from '@/databases/domain/types';
 import { SelectChangeEvent } from '@mui/material/Select';
+import { useTypedSelector } from '@/databases/hooks/useTypedSelector';
+import { useActions } from '@/databases/hooks/useActions';
 
 export default function Data() {
-  const dispatch = useDispatch();
+  const { addDataStructure } = useActions();
 
-  const [selectedValue, setSelectedValue] = useState<string>(
-    getEnumValues(DataStructures)[0]
-  );
+  const {
+    dataStructure: selectedDataStructure,
+    supportedDataTypes: selectedSupportedDataTypes,
+  } = useTypedSelector((state) => ({
+    dataStructure: state.dataStructure.dataStructure,
+    supportedDataTypes: state.dataStructure.supportedDataTypes,
+  }));
 
-  const handleChange = (event: SelectChangeEvent) => {
-    const newValue = event.target.value;
-    setSelectedValue(newValue);
+  const handleChange =
+    (type: 'dataStructure' | 'supportedDataTypes') =>
+    (event: SelectChangeEvent) => {
+      const newValue = event.target.value;
 
-    dispatch(
-      addDataStructure({ dataStructure: newValue, supportedDataTypes: '' })
-    );
-  };
+      addDataStructure({
+        ...{
+          dataStructure: selectedDataStructure,
+          supportedDataTypes: selectedSupportedDataTypes,
+        },
+        [type]: newValue,
+      });
+    };
 
   return (
     <>
@@ -28,14 +36,16 @@ export default function Data() {
         multiple={false}
         options={getEnumValues(DataStructures)}
         label='Data Structure'
-        handleChange={handleChange}
-        value={selectedValue}
+        handleChange={handleChange('dataStructure')}
+        value={selectedDataStructure}
       />
 
       <Dropdown
-        multiple
-        options={['Financial', 'JSON', 'XML', 'IP', 'Spatial', 'Time Series']}
+        multiple={false}
+        options={getEnumValues(SupportedDataTypes)}
         label='Supported Data Types'
+        handleChange={handleChange('supportedDataTypes')}
+        value={selectedSupportedDataTypes}
       />
     </>
   );
