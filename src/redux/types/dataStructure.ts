@@ -1,4 +1,4 @@
-export enum ActionTypes {
+export enum DataStructureActionTypes {
   SET_DATA_STRUCTURE = 'SET_DATA_STRUCTURE',
 }
 
@@ -8,6 +8,8 @@ export interface DataStructureState {
 }
 
 export interface SetDataStructureAction {
-  type: ActionTypes.SET_DATA_STRUCTURE;
+  type: DataStructureActionTypes.SET_DATA_STRUCTURE;
   payload: DataStructureState;
 }
+
+export type DataStructureAction = SetDataStructureAction;
