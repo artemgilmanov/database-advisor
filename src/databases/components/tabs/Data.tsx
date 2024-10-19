@@ -2,8 +2,8 @@ import Dropdown from '@/shared/components/Dropdown';
 import { getEnumValues } from '@/shared/domain/helpers';
 import { DataStructures, SupportedDataTypes } from '@/databases/domain/types';
 import { SelectChangeEvent } from '@mui/material/Select';
-import { useTypedSelector } from '@/databases/hooks/useTypedSelector';
-import { useActions } from '@/databases/hooks/useActions';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useActions } from '@/hooks/useActions';
 
 export default function Data() {
   const { addDataStructure } = useActions();
