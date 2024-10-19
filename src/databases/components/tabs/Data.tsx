@@ -11,10 +11,7 @@ export default function Data() {
   const {
     dataStructure: selectedDataStructure,
     supportedDataTypes: selectedSupportedDataTypes,
-  } = useTypedSelector((state) => ({
-    dataStructure: state.dataStructure.dataStructure,
-    supportedDataTypes: state.dataStructure.supportedDataTypes,
-  }));
+  } = useTypedSelector((state) => state.dataStructure);
 
   const handleChange =
     (type: 'dataStructure' | 'supportedDataTypes') =>
