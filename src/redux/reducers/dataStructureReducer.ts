@@ -1,9 +1,9 @@
 import { AnyAction } from 'redux';
 import {
+  DataStructureAction,
+  DataStructureActionTypes,
   DataStructureState,
-  SetDataStructureAction,
-  ActionTypes,
-} from '../../types/reduxTypes';
+} from '../types/dataStructure';
 
 const initialState: DataStructureState = {
   dataStructure: '',
@@ -12,14 +12,14 @@ const initialState: DataStructureState = {
 
 export const dataStructureReducer = (
   state: DataStructureState = initialState,
-  action: SetDataStructureAction | AnyAction
+  action: DataStructureAction | AnyAction
 ): DataStructureState => {
   switch (action.type) {
-    case ActionTypes.SET_DATA_STRUCTURE:
+    case DataStructureActionTypes.SET_DATA_STRUCTURE:
       return {
         ...state,
-        dataStructure: action.payload.dataStructure,
-        supportedDataTypes: action.payload.supportedDataTypes,
+        dataStructure: action.payload,
+        supportedDataTypes: action.payload,
       };
     default:
       return state;
