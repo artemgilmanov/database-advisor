@@ -7,11 +7,11 @@ import {
 
 const initialState: QualityAttributesState = {
   latency: '',
-  throughput: '',
   scalability: '',
   availability: '',
-  security: '',
   maintainability: '',
+  interoperability: '',
+  security: '',
 };
 
 export const qualityAttributesReducer = (
@@ -23,11 +23,11 @@ export const qualityAttributesReducer = (
       return {
         ...state,
         latency: action.payload.latency,
-        throughput: action.payload.throughput,
         scalability: action.payload.scalability,
         availability: action.payload.availability,
-        security: action.payload.security,
         maintainability: action.payload.maintainability,
+        interoperability: action.payload.interoperability,
+        security: action.payload.security,
       };
     default:
       return state;

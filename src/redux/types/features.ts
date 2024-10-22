@@ -4,10 +4,11 @@ export enum FeaturesActionTypes {
 
 export interface FeaturesState {
   transactions: string;
-  partitioningModel: string;
-  replicationModel: string;
+  // partitioningModel: string;
+  // replicationModel: string;
   primaryIndexes: boolean;
   secondaryIndexes: boolean;
+  ttl: boolean;
   crossDc: boolean;
   cdcStreaming: boolean;
   mapReduce: boolean;

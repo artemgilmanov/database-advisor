@@ -7,10 +7,11 @@ import {
 
 const initialState: FeaturesState = {
   transactions: '',
-  partitioningModel: '',
-  replicationModel: '',
+  // partitioningModel: '',
+  // replicationModel: '',
   primaryIndexes: false,
   secondaryIndexes: false,
+  ttl: false,
   crossDc: false,
   cdcStreaming: false,
   mapReduce: false,
@@ -30,11 +31,12 @@ export const featuresReducer = (
       return {
         ...state,
         transactions: action.payload.transactions,
-        partitioningModel: action.payload.partitioningModel,
-        replicationModel: action.payload.replicationModel,
+        // partitioningModel: action.payload.partitioningModel,
+        // replicationModel: action.payload.replicationModel,
         primaryIndexes: action.payload.primaryIndexes,
         secondaryIndexes: action.payload.secondaryIndexes,
         crossDc: action.payload.crossDc,
+        ttl: action.payload.ttl,
         cdcStreaming: action.payload.cdcStreaming,
         mapReduce: action.payload.mapReduce,
         fullTextSearch: action.payload.fullTextSearch,

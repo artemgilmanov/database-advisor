@@ -1,9 +1,9 @@
 import { FormGroup } from '@mui/material';
+import { SelectChangeEvent } from '@mui/material/Select';
 import Dropdown from '@/shared/components/Dropdown';
 import { getEnumValues } from '@/shared/domain/helpers';
-import { Replications } from '@/databases/domain/types';
+import { Transactions } from '@/databases/domain/types';
 import Checkbox from '@/shared/components/Checkbox';
-import { SelectChangeEvent } from '@mui/material/Select';
 import { useActions } from '@/hooks/useActions';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 
@@ -12,10 +12,11 @@ export default function Features() {
 
   const {
     transactions: selectedTransactions,
-    partitioningModel: selectedPartitioningModel,
-    replicationModel: selectedReplicationModel,
+    // partitioningModel: selectedPartitioningModel,
+    // replicationModel: selectedReplicationModel,
     primaryIndexes: selectedPrimaryIndexes,
     secondaryIndexes: selectedSecondaryIndexes,
+    ttl: selectedTTL,
     crossDc: selectedCrossDc,
     cdcStreaming: selectedCdcStreaming,
     mapReduce: selectedMapReduce,
@@ -30,10 +31,11 @@ export default function Features() {
     (
       type:
         | 'transactions'
-        | 'partitioningModel'
-        | 'replicationModel'
+        // | 'partitioningModel'
+        // | 'replicationModel'
         | 'primaryIndexes'
         | 'secondaryIndexes'
+        | 'ttl'
         | 'crossDc'
         | 'cdcStreaming'
         | 'mapReduce'
@@ -49,6 +51,8 @@ export default function Features() {
           ? !selectedPrimaryIndexes
           : type === 'secondaryIndexes'
           ? !selectedSecondaryIndexes
+          : type === 'ttl'
+          ? !selectedTTL
           : type === 'crossDc'
           ? !selectedCrossDc
           : type === 'cdcStreaming'
@@ -70,10 +74,11 @@ export default function Features() {
 
       addFeatures({
         transactions: selectedTransactions,
-        partitioningModel: selectedPartitioningModel,
-        replicationModel: selectedReplicationModel,
+        // partitioningModel: selectedPartitioningModel,
+        // replicationModel: selectedReplicationModel,
         primaryIndexes: selectedPrimaryIndexes,
         secondaryIndexes: selectedSecondaryIndexes,
+        ttl: selectedTTL,
         crossDc: selectedCrossDc,
         cdcStreaming: selectedCdcStreaming,
         mapReduce: selectedMapReduce,
@@ -91,25 +96,25 @@ export default function Features() {
       {/*<Dropdown multiple={true} options={getEnumValues(QueryLanguages)} label="Supported APIs" />*/}
       <Dropdown
         multiple={false}
-        options={['someTransaction1', 'someTransaction2', 'someTransaction3']}
+        options={getEnumValues(Transactions)}
         label='Transactions'
         handleChange={handleChange('transactions')}
         value={selectedTransactions}
       />
-      <Dropdown
+      {/* <Dropdown
         multiple={false}
-        options={['someModel1', 'someModel2', 'someModel3']}
+        options={[]}
         label='Partitioning Model'
         handleChange={handleChange('partitioningModel')}
         value={selectedPartitioningModel}
-      />
-      <Dropdown
+      /> */}
+      {/* <Dropdown
         multiple={false}
         options={getEnumValues(Replications)}
         label='Replication Model'
         handleChange={handleChange('replicationModel')}
         value={selectedReplicationModel}
-      />
+      /> */}
       {/*<Checkbox label="Linear Scalability" />*/}
       <Checkbox
         label='Primary Indexes'
@@ -121,7 +126,11 @@ export default function Features() {
         checked={selectedSecondaryIndexes}
         onChange={handleChange('secondaryIndexes')}
       />
-
+      <Checkbox
+        label='TTL'
+        checked={selectedTTL}
+        onChange={handleChange('ttl')}
+      />
       <Checkbox
         label='Cross-DC'
         checked={selectedCrossDc}

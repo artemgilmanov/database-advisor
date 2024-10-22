@@ -1,7 +1,9 @@
+import Typography from '@mui/material/Typography';
+import { SelectChangeEvent } from '@mui/material/Select';
+import Field from '@/shared/components/Field';
 import Dropdown from '@/shared/components/Dropdown';
 import { getEnumValues } from '@/shared/domain/helpers';
-import { DataStructures, SupportedDataTypes } from '@/databases/domain/types';
-import { SelectChangeEvent } from '@mui/material/Select';
+import { DataStructures } from '@/databases/domain/types';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useActions } from '@/hooks/useActions';
 
@@ -36,14 +38,21 @@ export default function Data() {
         handleChange={handleChange('dataStructure')}
         value={selectedDataStructure}
       />
+      <Typography variant='h5'>Unit (Row/Document) Size</Typography>
+      <Field label='Mean Unit Size (KB)' value='5' />
+      <Field label='Max Unit Size (KB)' value='8' />
 
-      <Dropdown
+      <Typography variant='h5'>DB Size</Typography>
+      <Field label='DB Size (GB)' value='100' />
+      <Field label='DB Size Growth per Month (GB)' value='5' />
+
+      {/* <Dropdown
         multiple={false}
         options={getEnumValues(SupportedDataTypes)}
         label='Supported Data Types'
         handleChange={handleChange('supportedDataTypes')}
         value={selectedSupportedDataTypes}
-      />
+      /> */}
     </>
   );
 }

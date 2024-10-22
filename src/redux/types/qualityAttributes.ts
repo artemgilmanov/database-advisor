@@ -4,11 +4,11 @@ export enum QualityAttributesActionTypes {
 
 export interface QualityAttributesState {
   latency: string;
-  throughput: string;
   scalability: string;
   availability: string;
-  security: string;
   maintainability: string;
+  interoperability: string;
+  security: string;
 }
 
 export interface SetQualityAttributesAction {

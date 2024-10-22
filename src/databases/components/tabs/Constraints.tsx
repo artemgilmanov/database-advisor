@@ -31,6 +31,18 @@ const tooltips = {
 // https://mui.com/material-ui/react-text-field/
 // https://redux.js.org/tutorials/typescript-quick-start
 export default function PrimaryInfo() {
+    return <>
+        <Dropdown multiple={true} options={getEnumValues(Licenses)} label="License (free or paid)"/>
+        <Dropdown multiple={true} options={getEnumValues(HostingOptions)} label="Hosting Options"/>
+        <Checkbox label="Prioritize Managed Cloud Services"/>
+        <Checkbox label="Prioritize Cost-Efficient Options"/>
+        <Dropdown multiple={true} options={getEnumValues(PricingModels)} label="Pricing Model"/>
+
+        <h3>Supported APIs</h3>
+        <Dropdown multiple={true} options={[]} label="API" />
+
+    </>;
+}
   const { addConstraints } = useActions();
 
   const {
