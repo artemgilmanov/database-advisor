@@ -12,19 +12,38 @@ export default function Data() {
 
   const {
     dataStructure: selectedDataStructure,
-    supportedDataTypes: selectedSupportedDataTypes,
+    meanUnitSize: selectedMeanUnitSize,
+    maxUnitSize: selectedMaxUnitSize,
+    dbSize: selectedDbSize,
+    dbSizeGrowth: selectedDbSizeGrowth,
   } = useTypedSelector((state) => state.dataStructure);
 
-  const handleChange =
+  const handleDropdownChange =
     (type: 'dataStructure' | 'supportedDataTypes') =>
     (event: SelectChangeEvent) => {
       const newValue = event.target.value;
 
       addDataStructure({
-        ...{
-          dataStructure: selectedDataStructure,
-          supportedDataTypes: selectedSupportedDataTypes,
-        },
+        dataStructure: selectedDataStructure,
+        meanUnitSize: selectedMeanUnitSize,
+        maxUnitSize: selectedMaxUnitSize,
+        dbSize: selectedDbSize,
+        dbSizeGrowth: selectedDbSizeGrowth,
+        [type]: newValue,
+      });
+    };
+
+  const handleFieldChange =
+    (type: 'meanUnitSize' | 'maxUnitSize' | 'dbSize' | 'dbSizeGrowth') =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = event.target.value;
+
+      addDataStructure({
+        dataStructure: selectedDataStructure,
+        meanUnitSize: selectedMeanUnitSize,
+        maxUnitSize: selectedMaxUnitSize,
+        dbSize: selectedDbSize,
+        dbSizeGrowth: selectedDbSizeGrowth,
         [type]: newValue,
       });
     };
@@ -35,24 +54,33 @@ export default function Data() {
         multiple={false}
         options={getEnumValues(DataStructures)}
         label='Data Structure'
-        handleChange={handleChange('dataStructure')}
+        handleChange={handleDropdownChange('dataStructure')}
         value={selectedDataStructure}
       />
+
       <Typography variant='h5'>Unit (Row/Document) Size</Typography>
-      <Field label='Mean Unit Size (KB)' value='5' />
-      <Field label='Max Unit Size (KB)' value='8' />
+      <Field
+        label='Mean Unit Size (KB)'
+        value={selectedMeanUnitSize}
+        onChange={handleFieldChange('meanUnitSize')}
+      />
+      <Field
+        label='Max Unit Size (KB)'
+        value={selectedMaxUnitSize}
+        onChange={handleFieldChange('maxUnitSize')}
+      />
 
       <Typography variant='h5'>DB Size</Typography>
-      <Field label='DB Size (GB)' value='100' />
-      <Field label='DB Size Growth per Month (GB)' value='5' />
-
-      {/* <Dropdown
-        multiple={false}
-        options={getEnumValues(SupportedDataTypes)}
-        label='Supported Data Types'
-        handleChange={handleChange('supportedDataTypes')}
-        value={selectedSupportedDataTypes}
-      /> */}
+      <Field
+        label='DB Size (GB)'
+        value={selectedDbSize}
+        onChange={handleFieldChange('dbSize')}
+      />
+      <Field
+        label='DB Size Growth per Month (GB)'
+        value={selectedDbSizeGrowth}
+        onChange={handleFieldChange('dbSizeGrowth')}
+      />
     </>
   );
 }

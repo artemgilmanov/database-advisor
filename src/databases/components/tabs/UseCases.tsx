@@ -6,72 +6,104 @@ import { OltpOlap, RPS } from '@/databases/domain/types';
 import Checkbox from '@/shared/components/Checkbox';
 import Field from '@/shared/components/Field';
 import { Grid2 as Grid } from '@mui/material';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useActions } from '@/hooks/useActions';
 
 const fieldStyle = { width: 100 };
 
 export default function UseCases() {
+  const {
+    oltpOlap,
+    insertRPS,
+    readRPSById,
+    readRPSByQuery,
+    updateRPS,
+    deleteRPS,
+    batchProcessingInsert,
+    batchProcessingRead,
+    batchProcessingUpdate,
+    batchProcessingDelete,
+    rowSize,
+  } = useTypedSelector((state) => state.useCases);
+
+  const { setOltpOlap, setRPS, setBatchProcessing, setRowSize } = useActions();
+
   return (
     <>
       <Dropdown
         multiple={true}
         options={getEnumValues(OltpOlap)}
         label='OLTP/OLAP'
+        value={oltpOlap}
+        handleChange={(e) => setOltpOlap(e.target.value)}
       />
       RPS = Rows Per Second
       <Grid container spacing={2}>
         <Grid size={2}>Insert</Grid>
         <Grid size={4}>
-          <Dropdown small options={getEnumValues(RPS)} label='RPS' />
+          <Dropdown
+            small
+            options={getEnumValues(RPS)}
+            label='RPS'
+            value={insertRPS}
+            handleChange={(e) => setRPS('insertRPS', e.target.value as RPS)}
+          />
         </Grid>
         <Grid size={6}>
           <Checkbox
             label='Batch Processing'
-            checked={false}
-            onChange={function (event: any): void {
-              throw new Error('Function not implemented.');
-            }}
+            checked={batchProcessingInsert}
+            onChange={(e) =>
+              setBatchProcessing('batchProcessingInsert', e.target.checked)
+            }
           />
         </Grid>
 
         <Grid size={2}>Read</Grid>
-
         <Grid size={4}>
           <Dropdown
             small
             options={getEnumValues(RPS)}
-            value={RPS.OneTen}
+            value={readRPSById}
             label='RPS by Id'
+            handleChange={(e) => setRPS('readRPSById', e.target.value as RPS)}
           />
         </Grid>
-
         <Grid size={6}>
           <Dropdown
             small
             options={getEnumValues(RPS)}
-            value={RPS.OneTen}
+            value={readRPSByQuery}
             label='RPS by Query'
+            handleChange={(e) =>
+              setRPS('readRPSByQuery', e.target.value as RPS)
+            }
           />
-          <Field label='Row size' style={fieldStyle} />
+          <Field
+            label='Row size'
+            value={rowSize}
+            onChange={(e) => setRowSize(e.target.value)}
+            style={fieldStyle}
+          />
         </Grid>
 
         <Grid size={2}>Update</Grid>
-
         <Grid size={4}>
           <Dropdown
             small
             options={getEnumValues(RPS)}
-            value={RPS.OneTen}
+            value={updateRPS}
             label='RPS'
+            handleChange={(e) => setRPS('updateRPS', e.target.value as RPS)}
           />
         </Grid>
-
         <Grid size={6}>
           <Checkbox
             label='Batch Processing'
-            checked={false}
-            onChange={function (event: any): void {
-              throw new Error('Function not implemented.');
-            }}
+            checked={batchProcessingUpdate}
+            onChange={(e) =>
+              setBatchProcessing('batchProcessingUpdate', e.target.checked)
+            }
           />
         </Grid>
 
@@ -80,17 +112,18 @@ export default function UseCases() {
           <Dropdown
             small
             options={getEnumValues(RPS)}
-            value={RPS.LessThan1}
+            value={deleteRPS}
             label='RPS'
+            handleChange={(e) => setRPS('deleteRPS', e.target.value as RPS)}
           />
         </Grid>
         <Grid size={6}>
           <Checkbox
             label='Batch Processing'
-            checked={false}
-            onChange={function (event: any): void {
-              throw new Error('Function not implemented.');
-            }}
+            checked={batchProcessingDelete}
+            onChange={(e) =>
+              setBatchProcessing('batchProcessingDelete', e.target.checked)
+            }
           />
         </Grid>
       </Grid>

@@ -109,7 +109,13 @@ export default function PrimaryInfo() {
       />
 
       <h3>Supported APIs</h3>
-      <Dropdown multiple={true} options={[]} label='API' />
+      <Dropdown
+        multiple={false}
+        options={['someApi1', 'someApi2', 'someApi3']}
+        label='API'
+        handleChange={handleChange('supportedApi')}
+        value={selectedSupportedApi}
+      />
       {/* <Dropdown
         multiple={false}
         options={getEnumValues(QueryLanguages)}

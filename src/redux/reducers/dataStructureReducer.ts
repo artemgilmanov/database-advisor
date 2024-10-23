@@ -7,7 +7,10 @@ import {
 
 const initialState: DataStructureState = {
   dataStructure: '',
-  supportedDataTypes: '',
+  meanUnitSize: '5',
+  maxUnitSize: '8',
+  dbSize: '100',
+  dbSizeGrowth: '5',
 };
 
 export const dataStructureReducer = (
@@ -19,7 +22,10 @@ export const dataStructureReducer = (
       return {
         ...state,
         dataStructure: action.payload.dataStructure,
-        supportedDataTypes: action.payload.supportedDataTypes,
+        meanUnitSize: action.payload.meanUnitSize,
+        maxUnitSize: action.payload.maxUnitSize,
+        dbSize: action.payload.dbSize,
+        dbSizeGrowth: action.payload.dbSizeGrowth,
       };
     default:
       return state;

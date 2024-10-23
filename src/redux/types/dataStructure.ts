@@ -4,7 +4,10 @@ export enum DataStructureActionTypes {
 
 export interface DataStructureState {
   dataStructure: string;
-  supportedDataTypes: string;
+  meanUnitSize: string;
+  maxUnitSize: string;
+  dbSize: string;
+  dbSizeGrowth: string;
 }
 
 export interface SetDataStructureAction {
