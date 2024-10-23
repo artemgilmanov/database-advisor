@@ -4,7 +4,6 @@ import {
   HostingOptions,
   Licenses,
   PricingModels,
-  QueryLanguages,
 } from '@/databases/domain/types';
 import Checkbox from '@/shared/components/Checkbox';
 import { SelectChangeEvent } from '@mui/material/Select';
@@ -31,24 +30,13 @@ const tooltips = {
 // https://mui.com/material-ui/react-text-field/
 // https://redux.js.org/tutorials/typescript-quick-start
 export default function PrimaryInfo() {
-    return <>
-        <Dropdown multiple={true} options={getEnumValues(Licenses)} label="License (free or paid)"/>
-        <Dropdown multiple={true} options={getEnumValues(HostingOptions)} label="Hosting Options"/>
-        <Checkbox label="Prioritize Managed Cloud Services"/>
-        <Checkbox label="Prioritize Cost-Efficient Options"/>
-        <Dropdown multiple={true} options={getEnumValues(PricingModels)} label="Pricing Model"/>
-
-        <h3>Supported APIs</h3>
-        <Dropdown multiple={true} options={[]} label="API" />
-
-    </>;
-}
   const { addConstraints } = useActions();
 
   const {
     licence: selectedLicence,
     hostingOption: selectedHostingOption,
     prioritizeManagedCloudServices: selectedPrioritizeManagedCloudServices,
+    prioritizeCostEfficientOptions: selectedPrioritizeCostEfficientOptions,
     pricingModel: selectedPricingModel,
     supportedApi: selectedSupportedApi,
   } = useTypedSelector((state) => state.constraints);
@@ -59,6 +47,7 @@ export default function PrimaryInfo() {
         | 'licence'
         | 'hostingOption'
         | 'prioritizeManagedCloudServices'
+        | 'prioritizeCostEfficientOptions'
         | 'pricingModel'
         | 'supportedApi'
     ) =>
@@ -66,6 +55,8 @@ export default function PrimaryInfo() {
       const newValue =
         type === 'prioritizeManagedCloudServices'
           ? !selectedPrioritizeManagedCloudServices
+          : type === 'prioritizeCostEfficientOptions'
+          ? !selectedPrioritizeCostEfficientOptions
           : event.target.value;
 
       addConstraints({
@@ -74,6 +65,8 @@ export default function PrimaryInfo() {
           hostingOption: selectedHostingOption,
           prioritizeManagedCloudServices:
             selectedPrioritizeManagedCloudServices,
+          prioritizeCostEfficientOptions:
+            selectedPrioritizeCostEfficientOptions,
           pricingModel: selectedPricingModel,
           supportedApi: selectedSupportedApi,
         },
@@ -102,6 +95,11 @@ export default function PrimaryInfo() {
         checked={selectedPrioritizeManagedCloudServices}
         onChange={handleChange('prioritizeManagedCloudServices')}
       />
+      <Checkbox
+        label='Prioritize Cost-Efficient Options'
+        checked={selectedPrioritizeCostEfficientOptions}
+        onChange={handleChange('prioritizeCostEfficientOptions')}
+      />
       <Dropdown
         multiple={false}
         options={getEnumValues(PricingModels)}
@@ -111,13 +109,14 @@ export default function PrimaryInfo() {
       />
 
       <h3>Supported APIs</h3>
-      <Dropdown
+      <Dropdown multiple={true} options={[]} label='API' />
+      {/* <Dropdown
         multiple={false}
         options={getEnumValues(QueryLanguages)}
         label='Query Language'
         handleChange={handleChange('supportedApi')}
         value={selectedSupportedApi}
-      />
+      /> */}
     </>
   );
 }

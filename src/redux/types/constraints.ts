@@ -6,6 +6,7 @@ export interface ConstraintsState {
   licence: string;
   hostingOption: string;
   prioritizeManagedCloudServices: boolean;
+  prioritizeCostEfficientOptions: boolean;
   pricingModel: string;
   supportedApi: string;
 }

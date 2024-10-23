@@ -9,6 +9,7 @@ const initialState: ConstraintsState = {
   licence: '',
   hostingOption: '',
   prioritizeManagedCloudServices: false,
+  prioritizeCostEfficientOptions: false,
   pricingModel: '',
   supportedApi: '',
 };
@@ -25,6 +26,8 @@ export const constraintsReducer = (
         hostingOption: action.payload.hostingOption,
         prioritizeManagedCloudServices:
           action.payload.prioritizeManagedCloudServices,
+        prioritizeCostEfficientOptions:
+          action.payload.prioritizeCostEfficientOptions,
         pricingModel: action.payload.pricingModel,
         supportedApi: action.payload.supportedApi,
       };
